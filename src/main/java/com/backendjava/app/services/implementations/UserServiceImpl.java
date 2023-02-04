@@ -26,16 +26,23 @@ public class UserServiceImpl implements UserServiceInterface {
 
     @Override
     public User getById(Integer id) {
-        return userRepository.findById(id).orElseThrow(()->new UserNotFoundException("User not found"));
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     @Override
-    public User Save(User user) {
+    public User save(User user) {
         return userRepository.save(user);
     }
 
     @Override
-    public void DeleteById(Integer id) {
-        userRepository.deleteById(id);
+    public User update(Integer id, User user) {
+        User oldUser = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        User user=getById(id);
+        userRepository.delete(user);
     }
 }
