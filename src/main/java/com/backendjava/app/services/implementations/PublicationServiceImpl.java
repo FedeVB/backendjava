@@ -1,8 +1,11 @@
 package com.backendjava.app.services.implementations;
 
 import com.backendjava.app.exceptions.PublicationNotFoundException;
+import com.backendjava.app.exceptions.UserNotFoundException;
 import com.backendjava.app.models.entity.Publication;
+import com.backendjava.app.models.entity.User;
 import com.backendjava.app.models.repository.PublicationRepository;
+import com.backendjava.app.models.repository.UserRepository;
 import com.backendjava.app.services.interfaces.PublicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,10 +17,12 @@ import java.util.List;
 public class PublicationServiceImpl implements PublicationService {
 
     private final PublicationRepository publicationRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public PublicationServiceImpl(PublicationRepository publicationRepository) {
+    public PublicationServiceImpl(PublicationRepository publicationRepository, UserRepository userRepository) {
         this.publicationRepository = publicationRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -33,7 +38,9 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public Publication save(Publication publication) {
+    public Publication save(String username, Publication publication) {
+        User user=userRepository.findByUsername(username).orElseThrow(()->new UserNotFoundException("User not found"));
+        user.getPublications().add(publication);
         return publicationRepository.save(publication);
     }
 
@@ -46,7 +53,11 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(String username,int id) {
+        User user=userRepository.findByUsername(username).orElseThrow(()->new UserNotFoundException("User not found"));
+        List<Publication> publications=user.getPublications();
+        publications.removeIf(publication -> publication.getId()==id);
+        userRepository.save(user);
         Publication publication1 = findById(id);
         publicationRepository.delete(publication1);
     }

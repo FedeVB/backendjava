@@ -8,7 +8,7 @@ public interface PublicationService {
 
     List<Publication> getAll();
     Publication findById(int id);
-    Publication save(Publication publication);
+    Publication save(String username,Publication publication);
     Publication update(int id,Publication publication);
-    void delete(int id);
+    void delete(String username,int id);
 }
