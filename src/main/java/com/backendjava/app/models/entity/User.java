@@ -35,6 +35,8 @@ public class User implements Serializable {
             uniqueConstraints = {@UniqueConstraint(columnNames = {"id_user", "id_role"})})
     private List<Role> roles;
 
+    @OneToMany(cascade = CascadeType.MERGE,mappedBy = "user")
+    private List<Publication> publications;
     {
         this.roles = new ArrayList<>();
     }

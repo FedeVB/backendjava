@@ -6,6 +6,7 @@ import com.backendjava.app.models.repository.UserRepository;
 import com.backendjava.app.services.interfaces.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,11 +21,13 @@ public class UserServiceImpl implements UserServiceInterface {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<User> getAll() {
         return userRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getById(Integer id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
     }

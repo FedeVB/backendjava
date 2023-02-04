@@ -6,6 +6,7 @@ import com.backendjava.app.models.repository.RoleRepository;
 import com.backendjava.app.services.interfaces.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,11 +21,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Role> getAll() {
         return roleRepository.findAll();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Role getById(Integer id) {
         return roleRepository.findById(id).orElseThrow(()->new RoleNotFoundException("Role not found"));
     }

@@ -30,12 +30,12 @@ public class UserController {
         return new ResponseEntity<>(userService.getById(id),HttpStatus.OK);
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "")
     public ResponseEntity<User> createUser(@RequestBody User user) {
         return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/update/id/{id}")
+    @PutMapping(value = "/id/{id}")
     public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable(value = "id") Integer id) {
         return new ResponseEntity<>(userService.save(user), HttpStatus.OK);
     }
