@@ -40,7 +40,7 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public Publication save(String username, Publication publication) {
         User user=userRepository.findByUsername(username).orElseThrow(()->new UserNotFoundException("User not found"));
-        user.getPublications().add(publication);
+        publication.setUser(user);
         return publicationRepository.save(publication);
     }
 

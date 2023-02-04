@@ -1,5 +1,6 @@
 package com.backendjava.app.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,7 +25,8 @@ public class Publication implements Serializable {
     private String tittle;
     private String content;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @JsonIgnoreProperties(value = "publications")
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
     @JoinColumn(name = "id_user", referencedColumnName = "id")
     private User user;
 }

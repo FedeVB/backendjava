@@ -40,7 +40,7 @@ public class PublicationController {
         return new ResponseEntity<>(publicationService.update(id,publication),HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/username/{username}/id{id}")
+    @DeleteMapping(value = "/user/{username}/id/{id}")
     public ResponseEntity<Void> delete(@PathVariable(value = "username")String username,@PathVariable(value = "id")Integer id){
         publicationService.delete(username,id);
         return ResponseEntity.status(HttpStatus.OK).build();
