@@ -18,8 +18,8 @@ import java.util.List;
 @Setter
 public class Role implements Serializable {
 
-
     private static final long serialVersionUID = 9027316424141017741L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

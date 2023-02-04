@@ -1,5 +1,7 @@
 package com.backendjava.app.models.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,6 +36,10 @@ public class User implements Serializable {
             , inverseJoinColumns = @JoinColumn(name = "id_role", referencedColumnName = "id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"id_user", "id_role"})})
     private List<Role> roles;
+
+    @JsonIgnoreProperties(value = "user")
+    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, mappedBy = "user")
+    private List<Publication> publications;
 
     {
         this.roles = new ArrayList<>();
