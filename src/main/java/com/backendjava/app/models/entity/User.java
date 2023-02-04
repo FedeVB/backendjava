@@ -27,7 +27,7 @@ public class User implements Serializable {
     private String username;
     private String surname;
     private String email;
-    private String key;
+    private String password;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "id_user", referencedColumnName = "id")
