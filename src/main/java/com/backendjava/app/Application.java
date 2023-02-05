@@ -1,6 +1,5 @@
 package com.backendjava.app;
 
-import com.backendjava.app.models.entity.User;
 import com.backendjava.app.services.interfaces.UserServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
