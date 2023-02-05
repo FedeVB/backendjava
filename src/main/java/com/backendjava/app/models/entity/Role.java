@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class Role implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    @NotBlank
     private String roleName;
     @ManyToMany(mappedBy = "roles")
     private List<User> users;
