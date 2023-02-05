@@ -1,4 +1,4 @@
-package com.backendjava.app.services.implementations;
+package com.backendjava.app.security;
 
 import com.backendjava.app.models.entity.User;
 import com.backendjava.app.services.interfaces.UserServiceInterface;
