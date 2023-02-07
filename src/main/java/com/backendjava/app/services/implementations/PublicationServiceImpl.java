@@ -32,6 +32,11 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    public List<Publication> findByUserId(Integer id) {
+        return publicationRepository.findByUserId(id);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Publication findById(int id) {
         return publicationRepository.findById(id).orElseThrow(() -> new PublicationNotFoundException("Publication not found"));
@@ -39,7 +44,7 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     public Publication save(String username, Publication publication) {
-        User user=userRepository.findByUsername(username).orElseThrow(()->new UserNotFoundException("User not found"));
+        User user=userRepository.findByUsernameOrEmail(username,username).orElseThrow(()->new UserNotFoundException("User not found"));
         publication.setUser(user);
         return publicationRepository.save(publication);
     }
@@ -54,7 +59,7 @@ public class PublicationServiceImpl implements PublicationService {
 
     @Override
     public void delete(String username,int id) {
-        User user=userRepository.findByUsername(username).orElseThrow(()->new UserNotFoundException("User not found"));
+        User user=userRepository.findByUsernameOrEmail(username,username).orElseThrow(()->new UserNotFoundException("User not found"));
         List<Publication> publications=user.getPublications();
         publications.removeIf(publication -> publication.getId()==id);
         userRepository.save(user);

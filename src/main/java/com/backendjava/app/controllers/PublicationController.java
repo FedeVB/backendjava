@@ -22,28 +22,33 @@ public class PublicationController {
     }
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<Publication>> getAll(){
+    public ResponseEntity<List<Publication>> getAll() {
         return new ResponseEntity<>(publicationService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/id/{id}")
-    public ResponseEntity<Publication> getOne(@PathVariable(value = "id")Integer id){
-        return new ResponseEntity<>(publicationService.findById(id),HttpStatus.OK);
+    public ResponseEntity<Publication> getOne(@PathVariable(value = "id") Integer id) {
+        return new ResponseEntity<>(publicationService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/idUser/{idUser}")
+    public ResponseEntity<List<Publication>> getForIdUser(@PathVariable(value = "idUser") Integer id) {
+        return new ResponseEntity<>(publicationService.findByUserId(id), HttpStatus.OK);
     }
 
     @PostMapping(value = "/user/{username}")
-    public ResponseEntity<Publication> create(@Valid @RequestBody Publication publication, @PathVariable(value = "username")String username){
-        return new ResponseEntity<>(publicationService.save(username,publication),HttpStatus.CREATED);
+    public ResponseEntity<Publication> create(@Valid @RequestBody Publication publication, @PathVariable(value = "username") String username) {
+        return new ResponseEntity<>(publicationService.save(username, publication), HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/id/{id}")
-    public ResponseEntity<Publication> update(@Valid @RequestBody Publication publication,@PathVariable(value = "id")Integer id){
-        return new ResponseEntity<>(publicationService.update(id,publication),HttpStatus.OK);
+    public ResponseEntity<Publication> update(@Valid @RequestBody Publication publication, @PathVariable(value = "id") Integer id) {
+        return new ResponseEntity<>(publicationService.update(id, publication), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/user/{username}/id/{id}")
-    public ResponseEntity<Void> delete(@PathVariable(value = "username")String username,@PathVariable(value = "id")Integer id){
-        publicationService.delete(username,id);
+    public ResponseEntity<Void> delete(@PathVariable(value = "username") String username, @PathVariable(value = "id") Integer id) {
+        publicationService.delete(username, id);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

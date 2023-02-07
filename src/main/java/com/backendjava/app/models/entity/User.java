@@ -38,6 +38,7 @@ public class User implements Serializable {
     @NotBlank
     private String password;
 
+    @JsonIgnoreProperties(value = "users")
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "id_user", referencedColumnName = "id")
             , inverseJoinColumns = @JoinColumn(name = "id_role", referencedColumnName = "id"),
@@ -51,4 +52,12 @@ public class User implements Serializable {
     {
         this.roles = new ArrayList<>();
     }
+
+    public User(String username, String surname, String email, String password) {
+        this.username = username;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+    }
+
 }
